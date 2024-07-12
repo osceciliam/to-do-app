@@ -1,0 +1,199 @@
+<div class="container">
+  <h1>Hola Mundo :D</h1>
+  <h2>{{ welcome }}</h2>
+
+  <ul>
+    @for (task of tasks(); track task) {
+    <li>
+      {{ task }}
+    </li>
+    }
+  </ul>
+  <hr />
+  <h2>{{ "Hola".repeat(4) }}</h2>
+  <p>La suma de 3 + 3 es: {{ 3 + 3 }}</p>
+  <p>Hola soy {{ name() }} y mi edad es {{ age }}</p>
+  <hr />
+  <img [src]="person().avatar" alt="" />
+  <input type="text" [value]="person().name" name="" id="" />
+  <button [disabled]="disabled">Click me</button>
+  <br />
+  <p>person: {{ person().age }}</p>
+  <hr />
+  <button (click)="clickHandler()">Click Me</button>
+  <br />
+  <button (dblclick)="clickHandler()">Double Me</button>
+  <br />
+
+  <p>(change)</p>
+  <input
+    type="number"
+    [value]="person().age"
+    (change)="changeHandler($event)"
+  />
+
+  <br />
+
+  <p>(keydown)</p>
+  <input
+    type="text"
+    [value]="person().name"
+    (keydown)="keydownHandler($event)"
+  />
+  <br />
+
+  <p>(change)</p>
+  <input type="text" [value]="person().name" (change)="changeHandler($event)" />
+
+  <br />
+
+  <p>(keydown con tecla espécifica ... Shift + t)</p>
+  <input
+    type="text"
+    [value]="person().name"
+    (keydown.shift.t)="clickHandler()"
+  />
+  <br />
+
+  <br />
+
+  <p>(keydown con tecla espécifica ... ctrl + v)</p>
+  <input
+    type="text"
+    [value]="person().name"
+    (keydown.ctrl.v)="clickHandler()"
+  />
+  <br />
+
+  <h1>Signals</h1>
+  <input type="text" [value]="name()" (change)="changeHandler($event)" />
+  <p>name: {{ name() }}</p>
+
+  <br />
+
+  <h1>Directivas de control</h1>
+
+  <ul>
+    <p>Total: {{ tasks().length }}</p>
+    @for (task of tasks(); track task; let i = $index) {
+    <li>{{ i }} {{ task }}</li>
+    }
+  </ul>
+
+  <br />
+  @if (1 !== 1) {
+  <div>My content</div>
+  } @if (name() === 'Osvaldo') {
+  <div>My content 2</div>
+  } @if (name() === 'Osvaldo') {
+  <div>Soy nini con la nueva sintaxis</div>
+  }
+
+  <input type="number" [value]="person().age" (change)="changeAge($event)" />
+  @if (person().name === 'Osvaldo' && person().age > 18) {
+  <div>My content 3</div>
+  } @else { Soy nini y soy mehnor de 18 }
+
+  <br />
+  <br />
+  <h1>IF Else, New Sintaxis</h1>
+
+  @if (person().name === 'Osvaldo' && person().age > 18) {
+  <div>Soy un IF con la nueva sintaxis</div>
+  } @else {
+  <div>Soy ELSE con la nueva sintaxis</div>
+  }
+
+  <hr />
+  <input type="text" [value]="person().name" (change)="changeName($event)" />
+  <div>
+    @switch (person().name) { @case ('Osvaldo') {
+    <p>Yo soy Osvaldo</p>
+    } @case ('nini') {
+    <p>Yo soy Nini</p>
+    } @case ('inge') {
+    <p>Yo soy el Ingeniero</p>
+    } @default {
+    <p>Yo no soy nada</p>
+    } }
+  </div>
+  <hr />
+  <hr />
+  <input type="color" [formControl]="colorCtrl" />
+  <p>color: {{ colorCtrl.value }}</p>
+  <hr />
+  <svg>
+    <g>
+      <rect
+        x="0"
+        y="0"
+        height="100"
+        width="100"
+        [attr.fill]="colorCtrl.value"
+      />
+    </g>
+  </svg>
+  <hr />
+  <hr />
+  <input type="number" [formControl]="widthCtrl" />
+  <span class="box" [style.width.px]="widthCtrl.value"></span>
+  <hr />
+  <hr />
+  <p>
+    <input type="text" [formControl]="nameCtrl" />
+    <br />
+    <!-- <span class="message-error" *ngIf="nameCtrl.invalid && nameCtrl.touched">Nombre invalido</span> -->
+    <span
+      class="message-error"
+      [class.show]="nameCtrl.invalid && nameCtrl.touched"
+      >Nombre invalido</span
+    >
+  </p>
+  <p>
+    <input type="text" />
+  </p>
+
+  <h1>For para mueva sintaxis</h1>
+
+  <ul>
+    <p>Total: {{ tasks().length }}</p>
+    @for (task of tasks(); track task; let i = $index) {
+    <li>{{ i }} {{ task }}</li>
+    }
+  </ul>
+
+  <ul>
+    @for (task of tasks(); track task; let i = $index) {
+    <li>{{ i }} {{ task }}</li>
+    } @empty {
+    <li><strong>La lista está en vacio</strong></li>
+    }
+  </ul>
+
+  <br />
+  <h1>Switch para mueva sintaxis</h1>
+  <input type="text" [value]="person().name" (change)="changeName($event)" />
+  <div>
+    @switch (person().name) { @case ('Osvaldo') {
+    <p>Yo soy Osvaldo</p>
+    } @case ('nini') {
+    <p>Yo soy Nini</p>
+    } @case ('inge') {
+    <p>Yo soy el Ingeniero</p>
+    } @default {
+    <p>Yo no soy nada</p>
+    } }
+  </div>
+
+  <div>
+    @switch (person().name) { @case ('Osvaldo') {
+    <p>Yo soy Osvaldo</p>
+    } @case ('nini') {
+    <p>Yo soy nini</p>
+    } @case ('master') {
+    <p>Yo soy master</p>
+    } @default {
+    <p>Yo soy nadie</p>
+    } }
+  </div>
+</div>
